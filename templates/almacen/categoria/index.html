@@ -26,11 +26,11 @@
 							<td>{{ categorias.descripcion}}</td>
 							<td>
 										<a href="{% url 'almacen:categoria_edit' categorias.id %}"><button class="btn btn-info">Editar</button></a>
-                    <a href="#"><button class="btn btn-danger">Eliminar</button></a>
+                    <a href="" data-target="#modal-delete-{{categorias.id}}" data-toggle="modal"><button class="btn btn-danger">Eliminar</button></a>
 							</td>
 
 						</tr>
-
+						{% include "almacen/categoria/modal.html"  %}
 					  {% endfor %}
 				{% else %}
     		   	<h1>No hay registros de categorias</h1>
