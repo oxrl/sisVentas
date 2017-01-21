@@ -21,19 +21,20 @@ class CategoriaCreate(CreateView):
     success_url= reverse_lazy('almacen:categoria_listar')
 
     def post(self, request, *args, **kwargs):
-        error=False
         self.object = self.get_object
         form = self.form_class(request.POST)
-        if len(request.POST['nombre']) <= 3:
-            messages.success(request,'El nombre debe ser mayor a tres caracteres')
-            error=True
-        if form.is_valid() and error != True:
-            categoria = form.save(commit=False)
-            categoria.save()
-            messages.success(request,'Se ha creado correctamente')
-            return HttpResponseRedirect(self.get_success_url())
+        if form.is_valid():
+            if len(request.POST['nombre']) <= 3:
+                messages.success(request,'El nombre debe ser mayor a tres caracteres')
+                return HttpResponseRedirect(reverse('almacen:categoria_create'))
+            else:
+                form.save()
+                messages.success(request,'Se ha creado correctamente')
+                return HttpResponseRedirect(self.get_success_url())
         else:
+            messages.success(request,'Ha ocurrido un error al registrar tu categoria, intenta de nuevo.')
             return HttpResponseRedirect(reverse('almacen:categoria_create'))
+
 
 class CategoriaUpdate(UpdateView):
     model=Categoria
@@ -46,13 +47,18 @@ class CategoriaUpdate(UpdateView):
         id_categoria = kwargs['pk']
         categoria = self.model.objects.get(id=id_categoria)
         form = self.form_class(request.POST, instance=categoria)
-        if form.is_valid():
-            form.save()
-            messages.success(request,'Se ha actualizado correctamente')
-            return HttpResponseRedirect(self.get_success_url())
+        if len(request.POST['nombre']) <= 3:
+                messages.success(request,'El nombre debe ser mayor a tres caracteres')
+                error=True
         else:
-            messages.success(request,'Error al ingresar los datos')
-            return HttpResponseRedirect(reverse('almacen:categoria_edit', kwargs={'pk':id_categoria}))
+            if form.is_valid():
+                form.save()
+                messages.success(request,'Se ha actualizado correctamente')
+                return HttpResponseRedirect(self.get_success_url())
+            else:
+                return HttpResponseRedirect(reverse('almacen:categoria_edit', kwargs={'pk':id_categoria}))
+
+        return HttpResponseRedirect(reverse('almacen:categoria_edit', kwargs={'pk':id_categoria}))
 
 class CategoriaDelete(DeleteView):
     model = Categoria
