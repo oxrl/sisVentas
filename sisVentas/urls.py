@@ -18,5 +18,6 @@ from django.contrib import admin
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^almacen/',include('apps.almacen.categoria.urls',namespace='almacen')),
+    url(r'^almacen/categoria',include('apps.almacen.categoria.urls',namespace='almacen_cat')),
+    url(r'^almacen/articulo',include('apps.almacen.articulo.urls',namespace='almacen_art')),
 ]

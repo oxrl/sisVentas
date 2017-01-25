@@ -4,8 +4,8 @@
 <div class="row">
 
 	<div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
-		<h3>Listado de Categorías <a href="{% url 'almacen:categoria_create'%}"><button class="btn btn-success">Nuevo</button></a></h3>
-		{% include "almacen/categoria/search.html"  %}
+		<h3>Listado de Artículos </h3>
+		{% include "almacen/articulo/search.html"  %}
 	</div>
 </div>
 
@@ -16,66 +16,39 @@
 				<thead>
 					<th>Id</th>
 					<th>Nombre</th>
-					<th>Descripción</th>
-					<th>Opciones</th>
+					<th>Codigo</th>
+					<th>Categoria</th>
+					<th>Stock</th>
+					<th>Imagen</th>
+					<th>Estado</th>
 				</thead>
 				{% if object_list %}
-						{% for categorias in object_list %}
+						{% for articulos in object_list %}
 						<tr>
-							<td>{{ categorias.id}}</td>
-							<td>{{ categorias.nombre}}</td>
-							<td>{{ categorias.descripcion}}</td>
+							<td>{{ articulos.idarticulo}}</td>
+							<td>{{ articulos.nombre}}</td>
+							<td>{{ articulos.codigo}}</td>
+							<td>{{ articulos.categoria}}</td>
+							<td>{{ articulos.stock}}</td>
 							<td>
-										<a href="{% url 'almacen:categoria_edit' categorias.id %}"><button class="btn btn-info">Editar</button></a>
+							{% load static %} <!-- Esto sirve para que carge las librerias static -->
+							<img src="{% static 'imagenes/articulos/' %}{{articulos.imagen}}" alt="{{articulos.nombre}}" height="100px" width="100px" class="img-thumbnail">
+				 			</td>
+							<td>{{ articulos.estado }}</td>
+							<td>
+										<a href="#"><button class="btn btn-info">Editar</button></a>
                     <a href="" data-target="#modal-delete-{{categorias.id}}" data-toggle="modal"><button class="btn btn-danger">Eliminar</button></a>
 							</td>
 
 						</tr>
-						{% include "almacen/categoria/modal.html"  %}
+
 					  {% endfor %}
 				{% else %}
-    		   	<h1>No hay registros de categorias</h1>
+    		   	<h1>No hay registros de Articulo</h1>
 				{% endif %}
 			</table>
 		</div>
 
-		<ul class="pagination">
-
-											{% if page_obj.has_previous %}
-											<li class="active">
-											 			<a href="?{{ page_obj.previous_page_number.querystring }}" class="prev">&lsaquo;&lsaquo; {% trans "" %}</a>
-											</li>
-											{% else %}
-											<li class="disabled">
-														<span class="disabled prev">&lsaquo;&lsaquo; {% trans "" %}</span>
-											</li>
-											{% endif %}
-											{% for page in page_obj.pages %}
-												{% if page %}
-														{% ifequal page page_obj.number %}
-														  <li class="active">
-																<span class="current page">{{ page }}</span>
-															</li>
-														{% else %}
-														  <li class="">
-																<a href="?{{ page.querystring }}" class="page">{{ page }}</a>
-														  </li>
-														{% endifequal %}
-												{% else %}
-														...
-												{% endif %}
-											{% endfor %}
-											{% if page_obj.has_next %}
-											<li class="active">
-														<a href="?{{ page_obj.next_page_number.querystring }}" class="next">{% trans "" %} &rsaquo;&rsaquo;</a>
-											</li>
-											{% else %}
-											<li class="disabled">
-														<span class="disabled next">{% trans "next" %} &rsaquo;&rsaquo;</span>
-											</li>
-											{% endif %}
-
-			</ul>
 
 	</div>
 </div>

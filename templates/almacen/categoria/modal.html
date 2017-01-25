@@ -1,6 +1,6 @@
 <div class="modal fade modal-slide-in-right" aria-hidden="true"
 role="dialog" tabindex="-1" id="modal-delete-{{categorias.id}}">
-<form method="post" action="{% url 'almacen:categoria_delete' categorias.id %}" >
+<form method="post" action="{% url 'almacen_cat:categoria_delete' categorias.id %}" >
   {% csrf_token %}
 	<div class="modal-dialog">
 		<div class="modal-content">

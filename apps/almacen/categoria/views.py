@@ -18,7 +18,7 @@ class CategoriaCreate(CreateView):
     model= Categoria
     form_class= CategoriaForm
     template_name='almacen/categoria/categoria_form.html'
-    success_url= reverse_lazy('almacen:categoria_listar')
+    success_url= reverse_lazy('almacen_cat:categoria_listar')
 
     def post(self, request, *args, **kwargs):
         self.object = self.get_object
@@ -26,21 +26,21 @@ class CategoriaCreate(CreateView):
         if form.is_valid():
             if len(request.POST['nombre']) <= 3:
                 messages.success(request,'El nombre debe ser mayor a tres caracteres')
-                return HttpResponseRedirect(reverse('almacen:categoria_create'))
+                return HttpResponseRedirect(reverse('almacen_cat:categoria_create'))
             else:
                 form.save()
                 messages.success(request,'Se ha creado correctamente')
                 return HttpResponseRedirect(self.get_success_url())
         else:
-            messages.success(request,'Ha ocurrido un error al registrar tu categoria, intenta de nuevo.')
-            return HttpResponseRedirect(reverse('almacen:categoria_create'))
+            messages.success(request,'Ha ocurrido un error al registrar tu categoria ')
+            return HttpResponseRedirect(reverse('almacen_cat:categoria_create'))
 
 
 class CategoriaUpdate(UpdateView):
     model=Categoria
     form_class=CategoriaForm
     template_name='almacen/categoria/categoria_form.html'
-    success_url = reverse_lazy('almacen:categoria_listar')
+    success_url = reverse_lazy('almacen_cat:categoria_listar')
 
     def post(self, request, *args, **kwargs):
         self.object = self.get_object
@@ -56,11 +56,11 @@ class CategoriaUpdate(UpdateView):
                 messages.success(request,'Se ha actualizado correctamente')
                 return HttpResponseRedirect(self.get_success_url())
             else:
-                return HttpResponseRedirect(reverse('almacen:categoria_edit', kwargs={'pk':id_categoria}))
+                return HttpResponseRedirect(reverse('almacen_cat:categoria_edit', kwargs={'pk':id_categoria}))
 
-        return HttpResponseRedirect(reverse('almacen:categoria_edit', kwargs={'pk':id_categoria}))
+        return HttpResponseRedirect(reverse('almacen_cat:categoria_edit', kwargs={'pk':id_categoria}))
 
 class CategoriaDelete(DeleteView):
     model = Categoria
     template_name = 'almacen/categoria/categoria_delete.html'
-    success_url = reverse_lazy('almacen:categoria_listar')
+    success_url = reverse_lazy('almacen_cat:categoria_listar')
