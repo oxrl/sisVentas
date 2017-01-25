@@ -7,7 +7,7 @@ from apps.almacen.articulo.models import Articulo
 from django.views.generic import ListView
 # Create your views here.
 class ArticuloList(ListView):
-    model = Articulo
+    queryset = Articulo.objects.all().order_by('idarticulo')
     template_name = "almacen/articulo/index.html"
     paginate_by = 5
     object = Articulo

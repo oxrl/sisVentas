@@ -9,7 +9,7 @@ from django.views.generic import ListView,CreateView,UpdateView,DeleteView
 from pure_pagination.mixins import PaginationMixin
 # Create your views here.
 class CategoriaList(PaginationMixin,ListView):
-    model = Categoria
+    queryset = Categoria.objects.all().order_by('id')
     template_name = "almacen/categoria/index.html"
     paginate_by = 5
     object = Categoria
