@@ -1,6 +1,6 @@
 <div class="modal fade modal-slide-in-right" aria-hidden="true"
-role="dialog" tabindex="-1" id="modal-delete-{{categorias.id}}">
-<form method="post" action="{% url 'almacen:categoria_delete' categorias.id %}" >
+role="dialog" tabindex="-1" id="modal-delete-{{articulos.idarticulo}}">
+<form method="post" action="{% url 'almacen_art:articulo_delete' articulos.idarticulo %}" >
   {% csrf_token %}
 	<div class="modal-dialog">
 		<div class="modal-content">
@@ -9,10 +9,10 @@ role="dialog" tabindex="-1" id="modal-delete-{{categorias.id}}">
 				aria-label="Close">
                      <span aria-hidden="true">×</span>
                 </button>
-                <h4 class="modal-title">Eliminar Categoría</h4>
+                <h4 class="modal-title">Eliminar Articulo</h4>
 			</div>
 			<div class="modal-body">
-				<p>Confirme si desea Eliminar la categoría</p>
+				<p>Confirme si desea Eliminar el Articulo</p>
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>

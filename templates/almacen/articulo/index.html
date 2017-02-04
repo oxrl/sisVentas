@@ -1,10 +1,17 @@
 {% extends 'layouts/admin.html' %}
 {% load i18n %}
 {% block content %}
+{% if messages %}
+		{% for message in messages %}
+		<div class="alert alert-success" role='alert'>
+			<strong>{{ message }}</strong>
+		</div>
+		{% endfor %}
+{% endif %}
 <div class="row">
 
 	<div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
-		<h3>Listado de Artículos </h3>
+		<h3>Listado de Artículos <a href="{% url 'almacen_art:articulo_create'%}"><button class="btn btn-success">Nuevo</button></a> </h3>
 		{% include "almacen/articulo/search.html"  %}
 	</div>
 </div>
@@ -21,6 +28,7 @@
 					<th>Stock</th>
 					<th>Imagen</th>
 					<th>Estado</th>
+					<th></th>
 				</thead>
 				{% if object_list %}
 						{% for articulos in object_list %}
@@ -34,14 +42,20 @@
 							{% load static %} <!-- Esto sirve para que carge las librerias static -->
 							<img src="{% static 'imagenes/articulos/' %}{{articulos.imagen}}" alt="{{articulos.nombre}}" height="100px" width="100px" class="img-thumbnail">
 				 			</td>
-							<td>{{ articulos.estado }}</td>
+
+							{% if articulos.estado == '1' %}
+							   <td> Activo </td>
+							{% else  %}
+								 <td> Inactivo </td>
+							{% endif %}
+
 							<td>
 										<a href="#"><button class="btn btn-info">Editar</button></a>
-                    <a href="" data-target="#modal-delete-{{categorias.id}}" data-toggle="modal"><button class="btn btn-danger">Eliminar</button></a>
+                    <a href="" data-target="#modal-delete-{{articulos.idarticulo}}" data-toggle="modal"><button class="btn btn-danger">Eliminar</button></a>
 							</td>
 
 						</tr>
-
+						{% include "almacen/articulo/modal.html"  %}
 					  {% endfor %}
 				{% else %}
     		   	<h1>No hay registros de Articulo</h1>

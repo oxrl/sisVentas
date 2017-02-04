@@ -1,14 +1,14 @@
 from django import forms
-from apps.almacen.categoria.models import Categoria
+from apps.almacen.articulo.models import Articulo
 
-class CategoriaForm(forms.ModelForm):
+class ArticuloForm(forms.ModelForm):
     class Meta:
-        model = Categoria
+        model = Articulo
         fields = [
             'idarticulo',
             'nombre',
             'codigo',
-            'categoria',
+            'idcategoria',
             'stock',
             'imagen',
             'estado',
@@ -17,7 +17,7 @@ class CategoriaForm(forms.ModelForm):
             'idarticulo':'Nombre',
             'nombre':'Descripción',
             'codigo':'Codigo',
-            'categoria':'Categoria',
+            'idcategoria':'Categoria',
             'stock':'Stock',
             'imagen':'Imagen',
             'estado':'Estado',
